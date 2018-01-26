@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: springcloud-spider 
+  data:
+    mongodb:
+ #     uri: mongodb://fang:fanggby123@127.0.0.1:27017/fang
+       uri: mongodb://fang:fanggby123@172.17.0.1:27017/fang
+logging:
+  path: /disk1/website/logs/sprider/
+  level:
+    root: INFO 
+    com:
+      mie: DEBUG   
+    org:
+      apache: INFO  
+      springframework:
+        data:
+          mongodb:
+            core: DEBUG
+eureka:
+  client:
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://clouddemo:8761/eureka/
+server:
+  port: 8762
+feign:
+  hystrix:
+    enabled: true
