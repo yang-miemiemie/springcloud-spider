@@ -1,5 +1,7 @@
 package com.mie.spider.thread;
 
+import org.assertj.core.util.DateUtil;
+
 import com.mie.spider.thread.pipeline.LianjiaOldPipeline;
 
 import us.codecraft.webmagic.Page;
@@ -30,6 +32,8 @@ public class LianjiaOldSpider implements PageProcessor{
 			page.addTargetRequests(page.getHtml().links().regex(detail_pattern).all());
 		}else if(page.getUrl().regex(detail_pattern).match()) {
 			Html html= page.getHtml();
+			String publicdate =html.xpath("//div[@class='transaction']//li[1]/span[2]/text()").toString();
+			page.putField("publicdate", publicdate);
 			page.putField("link", page.getUrl().toString());
 			page.putField("viliage", html.xpath("//div[@class='communityName']/a[@class='info']/text()").toString());
 			String room= html.xpath("//div[@class='room']/div[@class='mainInfo']/text()").toString();
