@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.mie.spider.thread.LianjiaOldAddSpider;
 import com.mie.spider.thread.LianjiaOldSpider;
 import com.mie.spider.thread.LianjiaThread;
 import com.mie.spider.thread.pipeline.LianjiaOldPipeline;
@@ -25,8 +26,17 @@ public class SpiderController {
 	}
 	
 	@RequestMapping(value = {"/lianjia_old"}, produces="application/json;charset=UTF-8")
-	public String spider(HttpServletRequest request) {
+	public String lianjia_old(HttpServletRequest request) {
 		Spider spider=  Spider.create(new LianjiaOldSpider()).setScheduler(new QueueScheduler()).thread(5);
+		spider.addUrl("https://wh.lianjia.com/ershoufang/pg1co32y1sf1/");
+		spider.addPipeline(new LianjiaOldPipeline());
+		spider.runAsync();
+		return "start";
+	}
+	
+	@RequestMapping(value = {"/lianjia_old_add"}, produces="application/json;charset=UTF-8")
+	public String lianjia_old_add(HttpServletRequest request) {
+		Spider spider=  Spider.create(new LianjiaOldAddSpider()).setScheduler(new QueueScheduler()).thread(5);
 		spider.addUrl("https://wh.lianjia.com/ershoufang/pg1co32y1sf1/");
 		spider.addPipeline(new LianjiaOldPipeline());
 		spider.runAsync();
