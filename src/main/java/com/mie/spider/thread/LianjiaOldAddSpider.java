@@ -57,7 +57,8 @@ public class LianjiaOldAddSpider implements PageProcessor{
 				page.putField("hallcount",Integer.valueOf(room.substring(2, 3)));
 				page.putField("price", Double.valueOf(html.xpath("//div[@class='price']/span[@class='total']/text()").toString()));
 				page.putField("region", html.xpath("//div[@class='areaName']/span[@class='info']/a[1]/text()").toString());
-				page.putField("area", html.xpath("//div[@class='houseInfo']/div[@class='area']/div[@class='mainInfo']/text()").toString());
+				String area=html.xpath("//div[@class='houseInfo']/div[@class='area']/div[@class='mainInfo']/text()").toString();
+				page.putField("area", area.substring(0, area.length()-2));
 				page.putField("no", html.xpath("//div[@class='houseRecord']/span[@class='info']/text()").toString());
 				page.putField("publicdate", html.xpath("//div[@class='transaction']//li[1]/span[2]/text()").toString());
 			}else {
